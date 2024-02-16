@@ -1443,4 +1443,23 @@ export class Wheel {
     });
   }
 
+  startContinuousSpin() {
+  const spin = () => {
+    const rotationSpeed = 0.1; // degrees per frame
+    this._rotation = (this._rotation + rotationSpeed) % 360;
+    this.refresh();
+
+    if (this._isSpinning) {
+      this._frameRequestId = window.requestAnimationFrame(spin);
+    }
+  };
+
+  this._isSpinning = true;
+  spin();
+  }
+
+  stopContinuousSpin() {
+    this._isSpinning = false;
+    window.cancelAnimationFrame(this._frameRequestId);
+  }
 }
